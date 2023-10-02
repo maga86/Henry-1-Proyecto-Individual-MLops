@@ -66,7 +66,7 @@ def UserForGenre(genero: str):
     return resultado
 
 @app.get('/User_Recommend/{anio}')
-def UsersRecommend(año: int):
+def UsersRecommend(anio: int):
     ''' Devuelve el top 3 de juegos MÁS recomendados por usuarios para el año dado. (reviews.recommend = True y comentarios positivos/neutrales)'''
     
     # filas para el año  y donde recommend es False
@@ -78,12 +78,12 @@ def UsersRecommend(año: int):
     conteo_juegos.columns = ['Item_Name', 'count']
     top_juegos_no_recomendados = conteo_juegos.sort_values(by='count', ascending=True).head(3)
     
-    resultado = [{"Puesto {}: {}".format(i+1, juego)} for i, juego in enumerate(top_juegos_no_recomendados['item_name'])]
+    resultado = [{"Puesto {}: {}".format(i+1, juego)} for i, juego in enumerate(top_juegos_no_recomendados['Item_Name'])]
     
     return resultado
 
 @app.get('/User_Not_Recommend/{anio}')
-def UsersNotRecommend(año: int):
+def UsersNotRecommend(anio: int):
     
     '''Devuelve el top 3 de juegos MENOS recomendados por usuarios para el año dado.'''
     
@@ -121,7 +121,7 @@ def sentiment_analysis(anio: int):
 
     return resultado
 
-
+# MODELO DE RECOMENDACION USANDO K VECINOS.
 
 # Cargar los datos del DataFrame
 df = pd.read_csv('steam_games.csv')
@@ -137,12 +137,15 @@ k = 5  # Número de vecinos cercanos a considerar
 model = NearestNeighbors(n_neighbors=k, metric='cosine')
 model.fit(features_matrix)
 
+#Funcionn 
 def get_recommendations(game_id, num_recommendations=5):
     game_index = df[df['App_Name'] == game_id].index[0]
     distances, indices = model.kneighbors([features_matrix.iloc[game_index]], n_neighbors=num_recommendations + 1)
     recommended_game_indices = indices[0][1:]  # Excluye el propio juego
     recommended_games = df.iloc[recommended_game_indices]['App_Name'].tolist()
     return recommended_games
+            
+# Llamar a la Api
 
 @app.get("/recommendations/{app_name}")
 def get_recommendations_endpoint(app_name: str, num_recommendations: int = 5):
