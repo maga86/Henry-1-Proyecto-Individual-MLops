@@ -69,16 +69,15 @@ def UserForGenre(genero: str):
 def UsersRecommend(anio: int):
     ''' Devuelve el top 3 de juegos MÁS recomendados por usuarios para el año dado. (reviews.recommend = True y comentarios positivos/neutrales)'''
     
-    # filas para el año  y donde recommend es False
-    juegos_no_recomendados = df2[(df2['Recommend'] == True)]
+    # Filtra las filas para el año dado y donde recommend es True
+    juegos_recomendados = df2[(df2['Year'] == anio) & (df2['Recommend'] == True)]
     
-      
-    juegos_no_recomendados = juegos_no_recomendados.merge(df3[['Item_Id', 'Item_Name']], on='Item_Id', how='left')
-    conteo_juegos = juegos_no_recomendados['Item_Name'].value_counts().reset_index()
+    juegos_recomendados = juegos_recomendados.merge(df3[['Item_Id', 'Item_Name']], on='Item_Id', how='left')
+    conteo_juegos = juegos_recomendados['Item_Name'].value_counts().reset_index()
     conteo_juegos.columns = ['Item_Name', 'count']
-    top_juegos_no_recomendados = conteo_juegos.sort_values(by='count', ascending=True).head(3)
+    top_juegos_recomendados = conteo_juegos.sort_values(by='count', ascending=False).head(3)
     
-    resultado = [{"Puesto {}: {}".format(i+1, juego)} for i, juego in enumerate(top_juegos_no_recomendados['Item_Name'])]
+    resultado = [{"Puesto {}: {}".format(i+1, juego)} for i, juego in enumerate(top_juegos_recomendados['Item_Name'])]
     
     return resultado
 
@@ -87,14 +86,13 @@ def UsersNotRecommend(anio: int):
     
     '''Devuelve el top 3 de juegos MENOS recomendados por usuarios para el año dado.'''
     
-     #filas para el año dado y donde recommend es False
-    juegos_no_recomendados = df2[(df2['Recommend'] == False)]
+    # Filtra las filas para el año dado y donde recommend es False
+    juegos_no_recomendados = df2[(df2['Year'] == anio) & (df2['Recommend'] == False)]
     
     juegos_no_recomendados = juegos_no_recomendados.merge(df3[['Item_Id', 'Item_Name']], on='Item_Id', how='left')
     conteo_juegos = juegos_no_recomendados['Item_Name'].value_counts().reset_index()
     conteo_juegos.columns = ['Item_Name', 'count']
-    
-    top_juegos_no_recomendados = conteo_juegos.sort_values(by='count', ascending=True).head(3)
+    top_juegos_no_recomendados = conteo_juegos.sort_values(by='count', ascending=False).head(3)
     
     
     resultado = [{"Puesto {}: {}".format(i+1, juego)} for i, juego in enumerate(top_juegos_no_recomendados['Item_Name'])]
