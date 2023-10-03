@@ -101,8 +101,7 @@ Ejemplo de retorno: [{"Puesto 1" : X}, {"Puesto 2" : Y},{"Puesto 3" : Z}]
 Ejemplo de retorno: {Negative = 182, Neutral = 120, Positive = 278
 
 Se pueden visualizar el desarrollo de las funciones en los siguientes archivos:
-- [Endspoints.ipynb](https://github.com/maga86/Henry-1-Proyecto-Individual-MLops/blob/main/Endspoints.ipynb)
-- [main.py](https://github.com/maga86/Henry-1-Proyecto-Individual-MLops/blob/main/main.py)
+- [Endspoints.ipynb](https://github.com/maga86/Henry-1-Proyecto-Individual-MLops/blob/main/Endspoints.ipynb) y el desarrollo de la apirest: [main.py](https://github.com/maga86/Henry-1-Proyecto-Individual-MLops/blob/main/main.py)
 
 ### Modelo de recomendación:
 ![](https://www.go4it.solutions/sites/default/files/2021-06/05.01.%20Qu%C3%A9%20es%20el%20Machine%20Learning.jpg)
