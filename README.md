@@ -101,8 +101,8 @@ Ejemplo de retorno: [{"Puesto 1" : X}, {"Puesto 2" : Y},{"Puesto 3" : Z}]
 Ejemplo de retorno: {Negative = 182, Neutral = 120, Positive = 278
 
 Se pueden visualizar el desarrollo de las funciones en los siguientes archivos:
-[Endspoints.ipynb](https://github.com/maga86/Henry-1-Proyecto-Individual-MLops/blob/main/Endspoints.ipynb)
-[main.py](https://github.com/maga86/Henry-1-Proyecto-Individual-MLops/blob/main/main.py)
+- [Endspoints.ipynb](https://github.com/maga86/Henry-1-Proyecto-Individual-MLops/blob/main/Endspoints.ipynb)
+- [main.py](https://github.com/maga86/Henry-1-Proyecto-Individual-MLops/blob/main/main.py)
 
 ### Modelo de recomendación:
 ![](https://www.go4it.solutions/sites/default/files/2021-06/05.01.%20Qu%C3%A9%20es%20el%20Machine%20Learning.jpg)
@@ -113,8 +113,8 @@ Si es un sistema de recomendación item-item:
 def recomendacion_juego( id de producto ): Ingresando el id de producto, deberíamos recibir una lista con 5 juegos recomendados similares al ingresado.
 
 Se realizo el sistema de recomendación utilizando las columnas app_name, item_name, Genres,Specs y Id_Items si bien se aconseja el modelo con la similitud del coseno, lo terminé realizando con K vecinos por una cuestion de recursos de mi máquina.Se pueden ver en los siguientes archivos: 
-[Sistema de Recomendación.ipynb](https://github.com/maga86/Henry-1-Proyecto-Individual-MLops/blob/main/Sistema%20de%20Recomendaci%C3%B3n.ipynb)
-[main.py](https://github.com/maga86/Henry-1-Proyecto-Individual-MLops/blob/main/main.py)
+- [Sistema de Recomendación.ipynb](https://github.com/maga86/Henry-1-Proyecto-Individual-MLops/blob/main/Sistema%20de%20Recomendaci%C3%B3n.ipynb)
+- [main.py](https://github.com/maga86/Henry-1-Proyecto-Individual-MLops/blob/main/main.py)
 
 
 ### Análisis Exploratorio de Datos:
