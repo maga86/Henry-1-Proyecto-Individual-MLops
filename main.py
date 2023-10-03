@@ -127,32 +127,36 @@ def sentiment_analysis(anio: int):
 # Cargar los datos del DataFrame
 df = pd.read_csv('steam_games.csv')
 
-#  características categóricas
+# Características categóricas
 genres_dummies = df['Genres'].str.get_dummies(sep=', ')
 specs_dummies = df['Specs'].str.get_dummies(sep=', ')
 features_matrix = pd.concat([genres_dummies, specs_dummies], axis=1)
-
 
 # Entrenar un modelo K-NN
 k = 5  # Número de vecinos cercanos a considerar
 model = NearestNeighbors(n_neighbors=k, metric='cosine')
 model.fit(features_matrix)
 
-#Funcionn 
-def get_recommendations(game_id, num_recommendations=5):
-    game_index = df[df['App_Name'] == game_id].index[0]
-    distances, indices = model.kneighbors([features_matrix.iloc[game_index]], n_neighbors=num_recommendations + 1)
-    recommended_game_indices = indices[0][1:]  # Excluye el propio juego
-    recommended_games = df.iloc[recommended_game_indices]['App_Name'].tolist()
+def get_recommendations(user_id, num_recommendations=5):
+    # Encuentra el índice del usuario en el DataFrame
+    user_index = df[df['User_Id'] == user_id].index[0]
+    
+    # Encuentra los vecinos más cercanos (usuarios similares)
+    distances, indices = model.kneighbors([features_matrix.iloc[user_index]], n_neighbors=num_recommendations + 1)
+    
+    # Excluye al propio usuario de las recomendaciones
+    recommended_user_indices = indices[0][1:]
+    
+    # Obtiene juegos recomendados para el usuario
+    recommended_games = df.iloc[recommended_user_indices]['App_Name'].tolist()
+    
     return recommended_games
-            
-# Llamar a la Api
 
-@app.get("/recommendations/{app_name}")
-def get_recommendations_endpoint(app_name: str, num_recommendations: int = 5):
+@app.get("/recommendations/{user_id}")
+def get_user_recommendations(user_id: int, num_recommendations: int = 5):
     
-    '''Se obtienen 5 juegos de las mismas carateristicas que el ingresado'''
+    '''Obtiene 5 juegos recomendados para el usuario basados en sus interacciones previas.'''
     
-    recommended_games = get_recommendations(app_name, num_recommendations)
+    recommended_games = get_recommendations(user_id, num_recommendations)
     return {"recommended_games": recommended_games}
 
