@@ -100,10 +100,20 @@ Ejemplo de retorno: [{"Puesto 1" : X}, {"Puesto 2" : Y},{"Puesto 3" : Z}]
 5- def sentiment_analysis( año : int ): Según el año de lanzamiento, se devuelve una lista con la cantidad de registros de reseñas de usuarios que se encuentren categorizados con un análisis de sentimiento.
 Ejemplo de retorno: {Negative = 182, Neutral = 120, Positive = 278
 
- 
+### Modelo de recomendación:
+![](https://www.go4it.solutions/sites/default/files/2021-06/05.01.%20Qu%C3%A9%20es%20el%20Machine%20Learning.jpg)
+Se pidió un modelo que  deberá tener una relación ítem-ítem, esto es se toma un item, en base a que tan similar es ese ítem al resto, se recomiendan similares. Aquí el input es un juego y el output es una lista de juegos recomendados, para ello recomendamos aplicar la similitud del coseno. Se pide que el modelo derive obligatoriamente en un GET/POST en la API símil al siguiente formato:
+
+Si es un sistema de recomendación item-item:
+
+def recomendacion_juego( id de producto ): Ingresando el id de producto, deberíamos recibir una lista con 5 juegos recomendados similares al ingresado.
+
+Se realizo el sistema de recomendación utilizando las columnas app_name, item_name, Genres,Specs y Id_Items si bien se aconseja el modelo con la similitud del coseno, lo terminé realizando con K vecinos por una cuestion de recursos de mi máquina.Se pueden ver en los siguientes archivos: 
+
+
 ### Análisis Exploratorio de Datos:
 
-Se realizaron una serie de análisis y estudios sobre las variables del dataset a para  poder encontrar relaciones entre los datos y comprender la relevancia de los mismos. Dentro de los análisis efectuados se encuentran gráficos de palabras, gráficos de barras comparando columnas, distribuciones de frecuencias de las variables numéricas, identificación de variables categóricas y sus valores, correlación entre variables, detección de outliers, análisis temporales y por categoría,comparación entre columnas.
+Se realizaron una serie de análisis y estudios sobre las variables del dataset  para  poder encontrar relaciones entre los datos y comprender la relevancia de los mismos. Dentro de los análisis efectuados se encuentran gráficos de palabras, gráficos de barras comparando columnas, distribuciones de frecuencias de las variables numéricas, identificación de variables categóricas y sus valores, correlación entre variables, detección de outliers, análisis temporales y por categoría,comparación entre columnas.
 
 Se puede visualizar el Análisis exploratorio en el archivo:[Proyecto1 EDA.ipynb](https://github.com/maga86/Proyecto-Individual/blob/main/Proyecto_1_EDA.ipynb)
 
