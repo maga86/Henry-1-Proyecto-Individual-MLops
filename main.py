@@ -67,10 +67,13 @@ def UserForGenre(genero: str):
 
 @app.get('/User_Recommend/{anio}')
 def UsersRecommend(anio: int):
-    ''' Devuelve el top 3 de juegos MÁS recomendados por usuarios para el año dado. (reviews.recommend = True y comentarios positivos/neutrales)'''
+    '''Devuelve el top 3 de juegos MÁS recomendados por usuarios para el año dado. (reviews.recommend = True y comentarios positivos/neutrales)'''
     
-    # Filtra las filas para el año dado y donde recommend es True
-    juegos_recomendados = df2[(df2['Year'] == anio) & (df2['Recommend'] == True)]
+    # Filtrar las filas para el año dado y donde recommend es True
+    juegos_recomendados = df2_sample[(df2_sample['Year'] == anio) & (df2_sample['Recommend'] == True)]
+    
+    if juegos_recomendados.empty:
+        return {"error": f"No hay datos para el año {anio}"}
     
     juegos_recomendados = juegos_recomendados.merge(df3[['Item_Id', 'Item_Name']], on='Item_Id', how='left')
     conteo_juegos = juegos_recomendados['Item_Name'].value_counts().reset_index()
@@ -79,7 +82,7 @@ def UsersRecommend(anio: int):
     
     resultado = [{"Puesto {}: {}".format(i+1, juego)} for i, juego in enumerate(top_juegos_recomendados['Item_Name'])]
     
-    return resultado
+    return {"top_juegos_recomendados": resultado}
 
 @app.get('/User_Not_Recommend/{anio}')
 def UsersNotRecommend(anio: int):
