@@ -67,7 +67,7 @@ def UserForGenre(genero: str):
 
 @app.get('/User_Recommend/{anio}')
 
-def UsersRecommend(año: int):
+def UsersRecommend(anio: int):
             ''' Debe devolver los 3 juegos mas recomendados de steam.'''
     
     # filas para el año  y donde recommend es False
