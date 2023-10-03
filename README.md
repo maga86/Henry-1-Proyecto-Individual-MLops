@@ -124,7 +124,7 @@ Se puede visualizar el Análisis exploratorio en el archivo:[EDA.ipynb](https://
 
 ### Deploy:
 
-Finalizando se llevo acabo el deploy de la apirest en la pagina render. Se puede ver el funcionamiento de la api en el siguiente enlace: https://deploy-steam-games.onrender.com/docs
+Finalizando se llevo acabo el deploy de la apirest en la pagina render. Se puede ver el funcionamiento de la api en el siguiente enlace: https://deploy-steami.onrender.com/docs
 
 ### Video:
 https://www.youtube.com/watch?v=mSlcqzS4wJc
