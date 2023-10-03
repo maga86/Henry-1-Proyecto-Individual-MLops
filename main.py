@@ -66,23 +66,26 @@ def UserForGenre(genero: str):
     return resultado
 
 @app.get('/User_Recommend/{anio}')
-def UsersRecommend(anio: int):
-    '''Devuelve el top 3 de juegos MÁS recomendados por usuarios para el año dado. (reviews.recommend = True y comentarios positivos/neutrales)'''
+
+def UsersRecommend(año: int):
+            ''' Debe devolver los 3 juegos mas recomendados de steam.'''
     
-    # Filtrar las filas para el año dado y donde recommend es True
-    juegos_recomendados = df2_sample[(df2_sample['Year'] == anio) & (df2_sample['Recommend'] == True)]
+    # filas para el año  y donde recommend es False
+    juegos_no_recomendados = df2[(df2['Recommend'] == True)]
     
-    if juegos_recomendados.empty:
-        return {"error": f"No hay datos para el año {anio}"}
+    # muestra aleatoria de df3
+    sample_size = 90000  
+    df3_sample = df3.sample(n=sample_size, random_state=42)
     
-    juegos_recomendados = juegos_recomendados.merge(df3[['Item_Id', 'Item_Name']], on='Item_Id', how='left')
-    conteo_juegos = juegos_recomendados['Item_Name'].value_counts().reset_index()
+    
+    juegos_no_recomendados = juegos_no_recomendados.merge(df3_sample[['Item_Id', 'Item_Name']], on='Item_Id', how='left')
+    conteo_juegos = juegos_no_recomendados['Item_Name'].value_counts().reset_index()
     conteo_juegos.columns = ['Item_Name', 'count']
-    top_juegos_recomendados = conteo_juegos.sort_values(by='count', ascending=False).head(3)
+    top_juegos_no_recomendados = conteo_juegos.sort_values(by='count', ascending=True).head(3)
     
-    resultado = [{"Puesto {}: {}".format(i+1, juego)} for i, juego in enumerate(top_juegos_recomendados['Item_Name'])]
+    resultado = [{"Puesto {}: {}".format(i+1, juego)} for i, juego in enumerate(top_juegos_no_recomendados['Item_Name'])]
     
-    return {"top_juegos_recomendados": resultado}
+    return resultado
 
 @app.get('/User_Not_Recommend/{anio}')
 def UsersNotRecommend(anio: int):
