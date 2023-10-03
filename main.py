@@ -65,18 +65,15 @@ def UserForGenre(genero: str):
 
     return resultado
 
-@app.get('/User_Recommend/{anio}')
-
-def UsersRecommend(anio: int):
-            ''' Debe devolver los 3 juegos mas recomendados de steam.'''
+def UsersRecommend(año: int):
+    ''' Debe devolver los 3 juegos mas recomendados de steam.'''
     
-    # filas para el año  y donde recommend es False
+    # filas para el año y donde recommend es False
     juegos_no_recomendados = df2[(df2['Recommend'] == True)]
     
     # muestra aleatoria de df3
     sample_size = 90000  
     df3_sample = df3.sample(n=sample_size, random_state=42)
-    
     
     juegos_no_recomendados = juegos_no_recomendados.merge(df3_sample[['Item_Id', 'Item_Name']], on='Item_Id', how='left')
     conteo_juegos = juegos_no_recomendados['Item_Name'].value_counts().reset_index()
@@ -86,6 +83,7 @@ def UsersRecommend(anio: int):
     resultado = [{"Puesto {}: {}".format(i+1, juego)} for i, juego in enumerate(top_juegos_no_recomendados['Item_Name'])]
     
     return resultado
+
 
 @app.get('/User_Not_Recommend/{anio}')
 def UsersNotRecommend(anio: int):
