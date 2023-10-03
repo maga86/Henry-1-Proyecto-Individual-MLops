@@ -64,7 +64,7 @@ def UserForGenre(genero: str):
     }
 
     return resultado
-
+@app.get('/UsersRecommend/{anio}')
 def UsersRecommend(año: int):
     ''' Debe devolver los 3 juegos mas recomendados de steam.'''
     
